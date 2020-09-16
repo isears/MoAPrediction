@@ -7,13 +7,17 @@ from tqdm.keras import TqdmCallback
 
 import numpy as np
 
+DEPTH = 5
 
 def get_model():
     model = Sequential()
     model.add(Dense(1000, activation='relu', input_dim=np.shape(X)[1]))
     model.add(Dropout(0.1))
-    model.add(Dense(500, activation='relu'))
-    model.add(Dropout(0.1))
+
+    for idx in range(0, DEPTH):
+        model.add(Dense(500, activation='relu'))
+        model.add(Dropout(0.1))
+
     model.add(Dense(np.shape(Y)[1], activation='sigmoid'))
 
     sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
@@ -54,3 +58,10 @@ for train, test in kfold.split(X, Y):
     all_scores.append(score)
 
     fold_idx += 1
+
+print(f'[+] Completed CV, average score: {sum(all_scores) / len(all_scores)}')
+print('[*] Training model on all data...')
+full_data_model = get_model()
+history = full_data_model.fit(X, Y, epochs=100, verbose=0, callbacks=[TqdmCallback(verbose=0)])
+
+full_data_model.save('./models/full-data-model.h5')

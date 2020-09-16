@@ -1,0 +1,10 @@
+Original model (baseline): cv 0.01641549877
+    - Disable optimizer: cv 0.04488035663962364
+    - Optimizer with default options: cv 0.019868889823555946
+
+5 Hidden layers: cv 0.016846954822540283
+
+Ideas for future:
+    - Train single-label classification models for "highest yield" labels
+        - Most popular labels in training data
+        - Most difficult labels to predict correctly
