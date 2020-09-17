@@ -1,4 +1,5 @@
 from MoASubmitter import *
+from LocalUtil import *
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation
 from tensorflow.keras.optimizers import SGD
@@ -28,7 +29,7 @@ def get_model():
 
 
 print("[*] Extracting data...")
-X, Y = extract_xy('./data/train_features.csv', './data/train_targets_scored.csv')
+X, Y = load_cache('./data/cache/X.npy', './data/cache/Y.npy')
 assert np.shape(X)[0] == np.shape(Y)[0]
 
 print("[+] Extraction complete")
