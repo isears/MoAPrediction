@@ -1,8 +1,16 @@
-Original model (baseline): cv 0.01641549877
+Original model (baseline 100 epochs, dropout, 1 hidden layer): cv 0.01641549877
     - Disable optimizer: cv 0.04488035663962364
     - Optimizer with default options: cv 0.019868889823555946
-
-5 Hidden layers: cv 0.016846954822540283
+    - 5 Hidden layers: cv 0.016846954822540283
+    - 10 Hidden layers: cv ~ 0.018
+    - 3 Hidden layers: cv ~ 0.01637718975543976
+    - 4 'pyramid' layers: cv 0.0164251733571291
+    - 5 Hidden layers, no dropout: cv 0.01618672236800194
+    - 3 Hidden layers, no dropout: cv 0.01619345657527447
+    - 10 Hidden layers, no dropout: cv 0.016700008884072304
+    - 4 Hidden layers, no dropout, 1000 epochs: training loss ~ 4.92e-5, cv 0.061739494651556016
+        - Massive overfitting
+    - 5 Hidden layers, no dropout, 500 epochs: cv 0.04931907877326012
 
 Ideas for future:
     - Train single-label classification models for "highest yield" labels

@@ -8,15 +8,16 @@ from tqdm.keras import TqdmCallback
 import numpy as np
 
 DEPTH = 5
+EPOCHS = 100
 
 def get_model():
     model = Sequential()
     model.add(Dense(1000, activation='relu', input_dim=np.shape(X)[1]))
-    model.add(Dropout(0.1))
+    #model.add(Dropout(0.1))
 
     for idx in range(0, DEPTH):
         model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.1))
+        #model.add(Dropout(0.1))
 
     model.add(Dense(np.shape(Y)[1], activation='sigmoid'))
 
@@ -44,7 +45,13 @@ bestscore = np.inf
 
 for train, test in kfold.split(X, Y):
     curr_model = get_model()
-    history = curr_model.fit(X[train], Y[train], epochs=100, verbose=0, callbacks=[TqdmCallback(verbose=0)])
+    history = curr_model.fit(
+        X[train],
+        Y[train],
+        epochs=EPOCHS,
+        verbose=0,
+        callbacks=[TqdmCallback(verbose=0)]
+    )
     score = curr_model.evaluate(X[test], Y[test])
     print(f'Score for fold {fold_idx}: {score}')
 
@@ -62,6 +69,6 @@ for train, test in kfold.split(X, Y):
 print(f'[+] Completed CV, average score: {sum(all_scores) / len(all_scores)}')
 print('[*] Training model on all data...')
 full_data_model = get_model()
-history = full_data_model.fit(X, Y, epochs=100, verbose=0, callbacks=[TqdmCallback(verbose=0)])
+history = full_data_model.fit(X, Y, epochs=EPOCHS, verbose=0, callbacks=[TqdmCallback(verbose=0)])
 
 full_data_model.save('./models/full-data-model.h5')
