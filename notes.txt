@@ -4,13 +4,19 @@ Original model (baseline 100 epochs, dropout, 1 hidden layer): cv 0.01641549877
     - 5 Hidden layers: cv 0.016846954822540283
     - 10 Hidden layers: cv ~ 0.018
     - 3 Hidden layers: cv ~ 0.01637718975543976
+        - w/softmax in final layer: training loss ~ 0.0144, cv ~ 0.016888035461306572
     - 4 'pyramid' layers: cv 0.0164251733571291
     - 5 Hidden layers, no dropout: cv 0.01618672236800194
+        - w/softmax in final layer: training loss ~ 0.0149, cv ~0.016556181013584137
+        - w/adam optimizer & 0.1 dropout: training loss ~ 0.00449, cv ~0.03500184416770935
+            - w/out dropout: training loss ~ 0.00205, cv ~0.04243400692939758
+            - 0.3 dropout 30 epochs (early stopping): trainling loss ~ 0.0155, cv ~ 0.01681930013000965
     - 3 Hidden layers, no dropout: cv 0.01619345657527447
     - 10 Hidden layers, no dropout: cv 0.016700008884072304
     - 4 Hidden layers, no dropout, 1000 epochs: training loss ~ 4.92e-5, cv 0.061739494651556016
         - Massive overfitting
     - 5 Hidden layers, no dropout, 500 epochs: cv 0.04931907877326012
+    - 100 Hidden layers, no dropout, 500 epochs: cv ~ 0.020841794088482857
 
 Ideas for future:
     - Train single-label classification models for "highest yield" labels

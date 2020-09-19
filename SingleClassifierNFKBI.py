@@ -1,4 +1,3 @@
-from MoASubmitter import *
 from LocalUtil import *
 from tensorflow.keras import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Activation
@@ -10,29 +9,32 @@ from datetime import datetime
 import numpy as np
 import tensorflow as tf
 
-DEPTH = 5
-EPOCHS = 30
+DEPTH = 1
+EPOCHS = 100
+
 
 def get_model():
     model = Sequential()
-    model.add(Dense(1000, activation='relu', input_dim=np.shape(X)[1]))
-    model.add(Dropout(0.3))
+    model.add(Dense(100, activation='relu', input_dim=np.shape(X)[1]))
+    model.add(Dropout(0.1))
 
     for idx in range(0, DEPTH):
-        model.add(Dense(500, activation='relu'))
-        model.add(Dropout(0.3))
+        model.add(Dense(10, activation='relu'))
+        model.add(Dropout(0.1))
 
     model.add(Dense(np.shape(Y)[1], activation='sigmoid'))
 
     sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
     adm = Adam()
-    model.compile(loss='binary_crossentropy', optimizer=adm)
+    model.compile(loss='binary_crossentropy', optimizer=sgd)
 
     return model
 
 
 print("[*] Extracting data...")
-X, Y = load_cache('./data/cache/X.npy', './data/cache/Y.npy')
+# X, Y = extract_xy_nfkbi('./data/train_features.csv', './data/train_targets_scored.csv')
+X, Y = load_cache('./data/cache/X_nfkbi.npy', './data/cache/Y_nfkbi.npy')
+
 assert np.shape(X)[0] == np.shape(Y)[0]
 
 print("[+] Extraction complete")
@@ -65,7 +67,6 @@ for train, test in kfold.split(X, Y):
         validation_data=(X[test], Y[test]),
         callbacks=[TqdmCallback(verbose=0), tb_callback]
     )
-
     score = curr_model.evaluate(X[test], Y[test])
     print(f'Score for fold {fold_idx}: {score}')
 

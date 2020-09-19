@@ -96,6 +96,35 @@ def extract_xy(x_path, y_path):
     return X, Y
 
 
+def extract_xy_nfkbi(x_path, y_path):
+    df_x = pd.read_csv(x_path)
+    df_y = pd.read_csv(y_path)
+
+    x_count = len(df_x.index)
+    y_count = len(df_y.index)
+
+    assert x_count == y_count
+    feature_count = len(df_x.columns) - 1  # sig_id not included as feature
+
+    X = np.zeros((x_count, feature_count))
+    Y = np.zeros((y_count, 1)) # Only getting nfkb_inhibitor
+
+    idx = 0
+    for sig_id in df_x.sig_id:
+        row_x = df_x[df_x.sig_id == sig_id]
+        row_y = df_y[df_y.sig_id == sig_id]
+        assert len(row_x.index) == 1  # sig_id should be unique
+        assert len(row_y.index) == 1
+        row_x = row_x.iloc[0]
+        row_y = row_y.iloc[0]
+
+        X[idx] = xrow_to_numpy(row_x)
+        Y[idx] = row_y['nfkb_inhibitor']
+        idx += 1
+
+    return X, Y
+
+
 def extract_x(x_path):
     df_x = pd.read_csv(x_path)
     x_count = len(df_x.index)
