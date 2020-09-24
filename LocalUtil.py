@@ -32,6 +32,12 @@ def build_nfkbi_cache():
     _save_cache(X, Y, './data/cache/X_nfkbi', './data/cache/Y_nfkbi')
 
 
+def build_noscore_cache():
+    print("[*] Extracting data...")
+    X, Y = extract_xy('./data/train_features.csv', './data/train_targets_nonscored.csv')
+    _save_cache(X, Y, './data/cache/X', './data/cache/Y_nonscored')
+
+
 def load_cache(x_cache_path, y_cache_path):
     X = np.load(x_cache_path, allow_pickle=False)
     Y = np.load(y_cache_path, allow_pickle=False)
@@ -40,4 +46,5 @@ def load_cache(x_cache_path, y_cache_path):
 
 
 if __name__ == '__main__':
-    build_nfkbi_cache()
+    #build_nfkbi_cache()
+    build_noscore_cache()
