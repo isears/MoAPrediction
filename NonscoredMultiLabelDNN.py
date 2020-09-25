@@ -32,7 +32,7 @@ def get_model():
 
 
 print("[*] Extracting data...")
-X, Y = load_cache('./data/cache/X.npy', './data/cache/Y.npy')
+X, Y = load_cache('./data/cache/X.npy', './data/cache/Y_nonscored.npy')
 assert np.shape(X)[0] == np.shape(Y)[0]
 
 print("[+] Extraction complete")
