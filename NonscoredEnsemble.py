@@ -23,21 +23,23 @@ assert np.shape(X_augmented)[1] == (np.shape(X)[1] + np.shape(y_nonscored)[1]), 
 
 
 DEPTH = 2
-EPOCHS = 100
+EPOCHS = 500
+DROPOUT = 0.1
+LEARNING_RATE = 0.005
 
 def get_model():
     model = Sequential()
     model.add(Dense(2000, activation='relu', input_dim=np.shape(X_augmented)[1]))
-    #model.add(Dropout(0.3))
+    model.add(Dropout(DROPOUT))
 
     for idx in range(0, DEPTH):
         model.add(Dense(1500, activation='relu'))
-        #model.add(Dropout(0.3))
+        model.add(Dropout(DROPOUT))
 
     model.add(Dense(np.shape(Y)[1], activation='sigmoid'))
 
-    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    adm = Adam(learning_rate=1e-4)
+    sgd = SGD(lr=LEARNING_RATE, decay=1e-6, momentum=0.9, nesterov=True)
+    adm = Adam(learning_rate=LEARNING_RATE)
     model.compile(loss='binary_crossentropy', optimizer=sgd)
 
     return model

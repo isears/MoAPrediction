@@ -152,7 +152,7 @@ if __name__ == '__main__':
     print(f'\t{np.shape(X)[0]} training examples with {np.shape(X)[1]} features')
 
     print("[*] Loading model...")
-    model = keras.models.load_model(f'{MODEL_ROOT}/model.h5')
+    model = keras.models.load_model(f'{MODEL_ROOT}/submission-model.h5')
     print("[+] Model loaded")
 
     print("[*] Making predictions...")

@@ -5,6 +5,7 @@ Original model (baseline 100 epochs, dropout, 1 hidden layer): cv 0.01641549877
     - 10 Hidden layers: cv ~ 0.018
     - 3 Hidden layers: cv ~ 0.01637718975543976
         - w/softmax in final layer: training loss ~ 0.0144, cv ~ 0.016888035461306572
+        - dropout 0.1， LR 0.005, 500 epochs: cv 0.01590914689004421
     - 4 'pyramid' layers: cv 0.0164251733571291
     - 5 Hidden layers, no dropout: cv 0.01618672236800194
         - w/softmax in final layer: training loss ~ 0.0149, cv ~0.016556181013584137
@@ -31,6 +32,7 @@ Original nonscored ensemble (30 epochs, no dropout, 5 hidden layers, SGD(lr=0.01
             - lr 0.1: divergence at cv ~0.017
         - shape change to 2000 input layer, 1500 hidden layers: ~ 0.016204802319407463 (1 round, long train time)
             - reduce hidden layers to 3: cv ~0.01608872227370739 (basically the same)
+                - dorpout 0.1: cv 0.016046952456235886 (avg. 4 out of 5 folds, may benefit from more epochs)
             - increase hidden layers to 10: cv ~0.016980761662125587
 
 Ideas for future:
